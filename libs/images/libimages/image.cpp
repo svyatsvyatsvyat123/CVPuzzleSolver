@@ -8,10 +8,23 @@
 template <typename T> Image<T>::Image() = default;
 
 template <typename T>
-Image<T>::Image(int width, int height, int channels)
-    : w_(width), h_(height), c_(channels),
-      data_(static_cast<std::size_t>(width) * static_cast<std::size_t>(height) * static_cast<std::size_t>(channels)) {
+void Image<T>::init(int width, int height, int channels) {
+    w_ = width;
+    h_ = height;
+    c_ = channels;
+    data_ = std::vector<T>((size_t) width * height * channels);
     rassert(width > 0 && height > 0 && channels > 0, "Invalid image size", width, height, channels);
+}
+
+template <typename T>
+Image<T>::Image(int width, int height, int channels) {
+    init(width, height, channels);
+}
+
+template <typename T>
+Image<T>::Image(std::tuple<int, int, int> size) {
+    auto [width, height, channels] = size;
+    init(width, height, channels);
 }
 
 template <typename T> int Image<T>::width() const noexcept { return w_; }
@@ -19,6 +32,8 @@ template <typename T> int Image<T>::width() const noexcept { return w_; }
 template <typename T> int Image<T>::height() const noexcept { return h_; }
 
 template <typename T> int Image<T>::channels() const noexcept { return c_; }
+
+template <typename T> std::tuple<int, int, int> Image<T>::size() const noexcept { return { w_, h_, c_ }; }
 
 template <typename T> std::size_t Image<T>::stride_elements() const noexcept {
     return static_cast<std::size_t>(w_) * static_cast<std::size_t>(c_);
@@ -28,7 +43,10 @@ template <typename T> T *Image<T>::data() noexcept { return data_.data(); }
 
 template <typename T> const T *Image<T>::data() const noexcept { return data_.data(); }
 
-template <typename T> std::size_t Image<T>::size() const noexcept { return data_.size(); }
+template <typename T> std::vector<T> Image<T>::toVector() const {
+    std::vector<T> copy = data_;
+    return copy;
+}
 
 template <typename T> void Image<T>::fill(const T &value) { std::fill(data_.begin(), data_.end(), value); }
 

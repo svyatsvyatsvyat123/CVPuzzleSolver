@@ -11,17 +11,19 @@ template <typename T> class Image final {
 
     Image();
     Image(int width, int height, int channels);
+    Image(std::tuple<int, int, int> size);
 
     int width() const noexcept;
     int height() const noexcept;
     int channels() const noexcept;
+    std::tuple<int, int, int> size() const noexcept;
 
     // Number of elements in a single row (width * channels)
     std::size_t stride_elements() const noexcept;
 
     T *data() noexcept;
     const T *data() const noexcept;
-    std::size_t size() const noexcept;
+    std::vector<T> toVector() const;
 
     void fill(const T &value);
 
@@ -39,6 +41,7 @@ template <typename T> class Image final {
     int c_ = 0;
     std::vector<T> data_;
 
+    void init(int w, int h, int c);
     void check_bounds_2d(int j, int i, std::source_location loc) const;
     void check_bounds_3d(int j, int i, int c, std::source_location loc) const;
     std::size_t index(int j, int i, int c) const;
