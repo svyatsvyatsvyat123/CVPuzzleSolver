@@ -34,14 +34,14 @@ TEST(split_into_parts, oneComponent) {
 
     int w = 95;
     int h = 105;
-    image32f image(w, h, 1);
+    image8u image(w, h, 1);
     image8u objectsMask(w, h, 1);
     unsigned char objectMaskValue = 255;
 
     point2i aFrom = {10, 20};
     point2i aTo = {30, 60};
     point2i aSize = aTo - aFrom;
-    float aColor = 239.0f;
+    uint8_t aColor = 239;
     drawCross(image, aFrom, aTo, aColor);
     drawCross(objectsMask, aFrom, aTo, objectMaskValue);
 
@@ -101,21 +101,21 @@ TEST(split_into_parts, twoComponents) {
 
     int w = 105;
     int h = 95;
-    image32f image(w, h, 1);
+    image8u image(w, h, 1);
     image8u objectsMask(w, h, 1);
     unsigned char objectMaskValue = 255;
 
     point2i aFrom = {10, 20};
     point2i aTo = {30, 60};
     point2i aSize = aTo - aFrom;
-    float aColor = 239.0f;
+    uint8_t aColor = 239;
     drawCross(image, aFrom, aTo, aColor);
     drawCross(objectsMask, aFrom, aTo, objectMaskValue);
 
     point2i bFrom = {60, 70};
     point2i bTo = {76, 85};
     point2i bSize = bTo - bFrom;
-    float bColor = 123.0f;
+    uint8_t bColor = 123;
     drawCross(image, bFrom, bTo, bColor);
     drawCross(objectsMask, bFrom, bTo, objectMaskValue);
 
