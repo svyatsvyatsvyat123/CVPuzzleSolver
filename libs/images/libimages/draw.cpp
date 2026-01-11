@@ -69,9 +69,9 @@ void drawPoint(Image<T>& image, point2i pixel, Color<T> c, int size) {
 }
 
 template <typename T>
-void drawPoints(Image<T>& image, const std::vector<point2i>& pixels, Color<T> c) {
+void drawPoints(Image<T>& image, const std::vector<point2i>& pixels, Color<T> c, int size) {
     for (const auto& p : pixels) {
-        drawPoint(image, p, c);
+        drawPoint(image, p, c, size);
     }
 }
 
@@ -79,5 +79,5 @@ void drawPoints(Image<T>& image, const std::vector<point2i>& pixels, Color<T> c)
 template void drawPoint<std::uint8_t>(Image<std::uint8_t>& image, point2i pixel, Color<uint8_t> c, int size);
 template void drawPoint<float>(Image<float>& image, point2i pixel, Color<float> c, int size);
 
-template void drawPoints<std::uint8_t>(Image<std::uint8_t>& image, const std::vector<point2i>& pixels, Color<uint8_t> c);
-template void drawPoints<float>(Image<float>& image, const std::vector<point2i>& pixels, Color<float> c);
+template void drawPoints<std::uint8_t>(Image<std::uint8_t>& image, const std::vector<point2i>& pixels, Color<uint8_t> c, int size);
+template void drawPoints<float>(Image<float>& image, const std::vector<point2i>& pixels, Color<float> c, int size);
